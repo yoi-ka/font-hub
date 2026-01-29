@@ -10,6 +10,11 @@ const fonts = [
         name: '平方迎风体',
         family: 'PING FANG YING FENG'
     },
+    {
+        folder: 'planschrift',
+        name: '遍玨体',
+        family: 'Planschrift'
+    },
 ];
 // ===========================================
 
