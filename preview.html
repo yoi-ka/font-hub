@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>字体预览</title>
+    
+    <link id="dynamic-font-link" rel="stylesheet" href="">
+
+    <style>
+        :root { --bg-color: #f5f5f7; --card-bg: #ffffff; --accent-color: #0071e3; }
+        body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg-color); margin: 0; padding: 20px; display: flex; justify-content: center; min-height: 100vh; }
+        .container { width: 100%; max-width: 900px; display: flex; flex-direction: column; gap: 20px; }
+        .controls { background: var(--card-bg); padding: 15px; border-radius: 12px; display: flex; gap: 20px; flex-wrap: wrap; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .control-item { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 200px; }
+        input[type="range"] { flex: 1; cursor: pointer; }
+        
+        .preview-box {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 40px;
+            min-height: 50vh;
+            font-size: 36px;
+            outline: none;
+            white-space: pre-wrap;
+            line-height: 1.6;
+            transition: all 0.2s;
+            /* 默认字体，防止加载失败时太难看 */
+            font-family: sans-serif; 
+        }
+        
+        .loading-tip { text-align: center; color: #999; font-size: 14px; margin-top: -10px;}
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div style="display:flex; justify-content: space-between; align-items: center;">
+            <h2 style="margin:0;" id="font-title">字体预览</h2>
+            <a href="./index.html" style="text-decoration: none; color: #666; font-size: 14px;">← 返回主页</a>
+        </div>
+
+        <div class="controls">
+            <div class="control-item">
+                <label>字号</label>
+                <input type="range" id="sizeRange" min="12" max="128" value="36">
+                <span id="sizeValue">36px</span>
+            </div>
+            <div class="control-item">
+                <label>字重</label>
+                <input type="range" id="weightRange" min="100" max="900" step="100" value="400">
+                <span id="weightValue">400</span>
+            </div>
+        </div>
+        
+        <div class="loading-tip" id="status-text"></div>
+
+        <div class="preview-box" id="editor" contenteditable="true" spellcheck="false">
+正在加载字体...
+
+1234567890
+天地玄黄，宇宙洪荒。
+The quick brown fox jumps over the lazy dog.
+        </div>
+    </div>
+
+    <script>
+        // 1. 获取 URL 参数
+        const params = new URLSearchParams(window.location.search);
+        const folder = params.get('folder');   // 例如: planschrift
+        const family = params.get('family');   // 例如: Planschrift
+        const name = params.get('name');       // 例如: 遍玨体
+
+        const linkEl = document.getElementById('dynamic-font-link');
+        const editor = document.getElementById('editor');
+        const title = document.getElementById('font-title');
+        const statusText = document.getElementById('status-text');
+
+        // 2. 动态加载逻辑
+        if (folder && family) {
+            // 设置 CSS 路径
+            linkEl.href = `./${folder}/result.css`;
+            
+            // 设置字体样式
+            editor.style.fontFamily = `"${family}", sans-serif`;
+            
+            // 更新标题
+            if(name) title.innerText = `${name} - 预览`;
+            
+            // 简单提示
+            statusText.innerText = `正在使用: ${family}`;
+            editor.innerText = `在这里输入文字测试 ${name || family}...\n\n1234567890\n天地玄黄，宇宙洪荒。\nSphinx of black quartz, judge my vow.`;
+        } else {
+            statusText.innerText = "未指定字体参数，请从主页进入";
+        }
+
+        // 3. 基础交互逻辑
+        const sizeRange = document.getElementById('sizeRange');
+        const weightRange = document.getElementById('weightRange');
+        
+        sizeRange.addEventListener('input', (e) => {
+            editor.style.fontSize = e.target.value + 'px';
+            document.getElementById('sizeValue').textContent = e.target.value + 'px';
+        });
+
+        weightRange.addEventListener('input', (e) => {
+            editor.style.fontWeight = e.target.value;
+            document.getElementById('weightValue').textContent = e.target.value;
+        });
+    </script>
+</body>
+</html>

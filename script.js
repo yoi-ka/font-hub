@@ -82,7 +82,7 @@ function renderFontCard(fontData, encodedFolder) {
     card.innerHTML = `
                 <div class="card-header">
                     <h3>${fontData.name}</h3>
-                    <a href="./${encodedFolder}/index.html" target="_blank" style="color:var(--primary); font-size:0.9rem;">查看详情 →</a>
+                    <a href="./preview.html?folder=${encodedFolder}&family=${encodeURIComponent(fontData.family)}&name=${encodeURIComponent(fontData.name)}" target="_blank" style="color:var(--primary); font-size:0.9rem;">测试字体 →</a>
                 </div>
 
                 <div class="preview-box" style="font-family: '${fontData.family}', serif;">
