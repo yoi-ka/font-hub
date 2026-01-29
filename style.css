@@ -1,0 +1,179 @@
+:root {
+    --primary: #88ada6;
+    --accent-blue: #d0ebf7;
+    --text-blue: #0d548d;
+    --bg: #7e7e7e;
+    
+    /* 代码高亮颜色 */
+    --code-purple: #a626a4;
+    --code-green: #50a14f;
+    --code-red: #e45649;
+    --code-prop: #986801;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--bg);
+    padding: 2rem;
+    color: #333;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+h1, .header-desc {
+    color: snow;
+    text-align: center;
+}
+
+.font-grid {
+    display: grid;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+/* 卡片整体风格 */
+.card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid #eee;
+    transition: transform 0.2s ease;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.card h3 {
+    margin: 0;
+    color: var(--primary);
+    font-size: 1.5rem;
+}
+
+/* 预览区域 */
+.preview-box {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding: 20px;
+    border: 1px dashed #ddd;
+    border-radius: 8px;
+    background: #fdfdfd;
+    line-height: 1.6;
+    color: #444;
+}
+
+/* ====== Tab 选项卡区域 ====== */
+.tab-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.tab-btn {
+    padding: 6px 16px;
+    border: 1px solid #ddd;
+    background: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #555;
+    transition: all 0.2s;
+}
+
+.tab-btn.active {
+    background: var(--accent-blue);
+    color: var(--text-blue);
+    border-color: var(--accent-blue);
+    font-weight: 600;
+}
+
+.tab-desc {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #888;
+    margin-bottom: 10px;
+}
+
+/* ====== 代码展示框 ====== */
+.code-wrapper {
+    position: relative;
+    background: #fafafa;
+    border: 1px solid #e1e4e8;
+    border-radius: 6px;
+    padding: 15px;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    overflow-x: auto;
+}
+
+/* 隐藏未激活的 tab 内容 */
+.code-content {
+    display: none;
+    white-space: pre;
+}
+
+.code-content.active {
+    display: block;
+}
+
+/* 代码高亮 span */
+.hl-k { color: var(--code-purple); font-weight: bold; }
+.hl-s { color: var(--code-green); }
+.hl-t { color: var(--code-red); }
+.hl-p { color: var(--code-prop); }
+
+/* ====== 复制按钮 ====== */
+.copy-btn {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: var(--accent-blue);
+    border: none;
+    border-radius: 6px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.copy-btn:hover {
+    background: #bce0f0;
+}
+
+.copy-btn svg {
+    width: 18px;
+    height: 18px;
+    fill: var(--text-blue);
+}
+
+/* 复制成功提示 */
+.toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+.toast.show {
+    opacity: 1;
+}
