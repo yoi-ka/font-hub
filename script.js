@@ -15,6 +15,11 @@ const fonts = [
         name: '遍玨体',
         family: 'Planschrift'
     },
+    {
+        folder: '851tegaki_zatsu',
+        name: '851 手写杂书体',
+        family: '851tegakizatsu'
+    },
 ];
 // ===========================================
 
