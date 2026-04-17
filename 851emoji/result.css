@@ -12,10 +12,243 @@
 
 @font-face {
     font-family: "851emoji";
-    src: local("851tegakizatsu"),
-        url("./851-emojionly.woff2") format("woff2");
+    src: local("851tegakizatsu"), url("./a6c31a93afc0f3e13271ad195c66d618.woff2")format("woff2");
     font-style: normal;
     font-display: swap;
     font-weight: 400;
-    unicode-range: U+2600-26FF, U+2700-27BF, U+1F300-1F6FF;
+    unicode-range: U+1F679-1F6CF, U+1F6E0-1F6EC, U+1F6F0-1F6F3;
+}
+
+@font-face {
+    font-family: "851emoji";
+    src: local("851tegakizatsu"), url("./08dc520f70846cf5bb440fb9dd01b2a6.woff2")format("woff2");
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    unicode-range: U+1F60D-1F642, U+1F645-1F678;
+}
+
+@font-face {
+    font-family: "851emoji";
+    src: local("851tegakizatsu"), url("./73db8dda9208f3ee937ce5ed13fc57bb.woff2")format("woff2");
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    unicode-range: U+1F5A5-1F60C;
+}
+
+@font-face {
+    font-family: "851emoji";
+    src: local("851tegakizatsu"), url("./20071e5c68667258e3cff245ddae2587.woff2")format("woff2");
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    unicode-range: U+1F537-1F54A, U+1F550-1F579, U+1F57B-1F5A3;
+}
+
+@font-face {
+    font-family: "851emoji";
+    src: local("851tegakizatsu"), url("./f2ccc00a014c35c517a2b0eb831ea1b7.woff2")format("woff2");
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    unicode-range: U+1F4D1-1F4FE, U+1F500-1F536;
+}
+
+@font-face {
+    font-family: "851emoji";
+    src: local("851tegakizatsu"), url("./1fdfe408d248339022a87eea6631c4a2.woff2")format("woff2");
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    unicode-range: U+1F46D-1F4D0;
+}
+
+@font-face {
+    font-family: "851emoji";
+    src: local("851tegakizatsu"), url("./68f4db41caf6aa51ec7477f1d4f7dd6d.woff2")format("woff2");
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    unicode-range: U+1F40B-1F46C;
+}
+
+@font-face {
+    font-family: "851emoji";
+    src: local("851tegakizatsu"), url("./b4e4fc8239f96ff6aa6356a90b29c852.woff2")format("woff2");
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    unicode-range: U+1F39D-1F3CE, U+1F3D4-1F3F7, U+1F400-1F40A;
+}
+
+@font-face {
+    font-family: "851emoji";
+    src: local("851tegakizatsu"), url("./059cb2fec9480d4348027fe3e9a04d12.woff2")format("woff2");
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    unicode-range: U+1F33C-1F37D, U+1F380-1F39C;
+}
+
+@font-face {
+    font-family: "851emoji";
+    src: local("851tegakizatsu"), url("./176134cf6234c4041654c0b8347a19a0.woff2")format("woff2");
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    unicode-range: U+1F222-1F23A, U+1F240-1F248, U+1F250-1F251, U+1F300-1F32C, U+1F330-1F33B;
+}
+
+@font-face {
+    font-family: "851emoji";
+    src: local("851tegakizatsu"), url("./fd9e3468d3714cd7420dae6856594f37.woff2")format("woff2");
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    unicode-range: U+2BEE-2BFF, U+1F000, U+1F004, U+1F0CF, U+1F170-1F171, U+1F179, U+1F17B-1F17C, U+1F17E-1F17F, U+1F18A-1F18E, U+1F190-1F19A, U+1F1E6-1F202, U+1F210-1F221;
+}
+
+@font-face {
+    font-family: "851emoji";
+    src: local("851tegakizatsu"), url("./372a497a33175e576fcb5a454e37a324.woff2")format("woff2");
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    unicode-range: U+2B95-2BED;
+}
+
+@font-face {
+    font-family: "851emoji";
+    src: local("851tegakizatsu"), url("./e4046d2b786610ba6d4eb9f8441d9b14.woff2")format("woff2");
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    unicode-range: U+2B3E-2B94;
+}
+
+@font-face {
+    font-family: "851emoji";
+    src: local("851tegakizatsu"), url("./9500bb1ab56b3b8769bbecb234e996ba.woff2")format("woff2");
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    unicode-range: U+27A9-27BF, U+2B00-2B3D;
+}
+
+@font-face {
+    font-family: "851emoji";
+    src: local("851tegakizatsu"), url("./5d2b91451faa48a896e2562b1e2de8e4.woff2")format("woff2");
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    unicode-range: U+2756-27A8;
+}
+
+@font-face {
+    font-family: "851emoji";
+    src: local("851tegakizatsu"), url("./73d7dbc70f89586339f7970bc29ee775.woff2")format("woff2");
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    unicode-range: U+2705-2755;
+}
+
+@font-face {
+    font-family: "851emoji";
+    src: local("851tegakizatsu"), url("./436f1b1ef2f66591cfa05e3abdfa5df1.woff2")format("woff2");
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    unicode-range: U+26B7-2704;
+}
+
+@font-face {
+    font-family: "851emoji";
+    src: local("851tegakizatsu"), url("./daf20408a644fd37bb5ca4a0ca280e85.woff2")format("woff2");
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    unicode-range: U+266C-26B6;
+}
+
+@font-face {
+    font-family: "851emoji";
+    src: local("851tegakizatsu"), url("./2abcac3912b06be0d84565e433fb4a45.woff2")format("woff2");
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    unicode-range: U+2624-266B;
+}
+
+@font-face {
+    font-family: "851emoji";
+    src: local("851tegakizatsu"), url("./e73065c7bd9358bcf47d4491edf8fa0c.woff2")format("woff2");
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    unicode-range: U+25DF-2623;
+}
+
+@font-face {
+    font-family: "851emoji";
+    src: local("851tegakizatsu"), url("./d39f5363f5d69e16d4c312e4299e8dbf.woff2")format("woff2");
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    unicode-range: U+23FC-23FF, U+25A0-25CE, U+25D0-25DE;
+}
+
+@font-face {
+    font-family: "851emoji";
+    src: local("851tegakizatsu"), url("./a87eab928ac6223eb644fa6c05c7eeb6.woff2")format("woff2");
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    unicode-range: U+23BE-23FB;
+}
+
+@font-face {
+    font-family: "851emoji";
+    src: local("851tegakizatsu"), url("./6744dd753b594c7e8461d3139d25c1da.woff2")format("woff2");
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    unicode-range: U+2384-23BD;
+}
+
+@font-face {
+    font-family: "851emoji";
+    src: local("851tegakizatsu"), url("./1725170bc8e7a3aee51e1cff3f6c062f.woff2")format("woff2");
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    unicode-range: U+2350-2383;
+}
+
+@font-face {
+    font-family: "851emoji";
+    src: local("851tegakizatsu"), url("./28539e6bce1efe8b01815e84778bd809.woff2")format("woff2");
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    unicode-range: U+2322-234F;
+}
+
+@font-face {
+    font-family: "851emoji";
+    src: local("851tegakizatsu"), url("./83424cf71083de670af750e634045344.woff2")format("woff2");
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    unicode-range: U+200D, U+221F, U+2300-2321;
+}
+
+@font-face {
+    font-family: "851emoji";
+    src: local("851tegakizatsu"), url("./89fe14b5ac43c40672918b6cd0b5d05a.woff2")format("woff2");
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    unicode-range: U+25CF;
 }
