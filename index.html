@@ -8,24 +8,62 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
-    <div class="container">
-        <h1>Yoika's Font Hub</h1>
+<body class="layout-list">
+    <svg aria-hidden="true" style="display: none;">
 
-        <p class="header-desc">
-            基于 <code>cn-font-split</code> 智能分包
-        </p>
+        <symbol id="icon-list" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="8" y1="6" x2="21" y2="6"></line>
+            <line x1="8" y1="12" x2="21" y2="12"></line>
+            <line x1="8" y1="18" x2="21" y2="18"></line>
+            <line x1="3" y1="6" x2="3.01" y2="6"></line>
+            <line x1="3" y1="12" x2="3.01" y2="12"></line>
+            <line x1="3" y1="18" x2="3.01" y2="18"></line>
+        </symbol>
 
-        <p style="font-size: 0.8rem; color: #999; margin-top: -10px; margin-bottom: 30px;">
-            * 字体仅供个人学习与测试使用，商用请务必通过官方授权
-        </p>
+        <symbol id="icon-grid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+        </symbol>
 
-        <div id="font-list" class="font-grid">正在扫描字体库...</div>
-    </div>
+        <symbol id="icon-copied" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.8" fill="none"
+            stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m12 15 2 2 4-4" />
+            <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+            <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+        </symbol>
 
-    <div id="toast" class="toast">复制成功！</div>
+    </svg>
+
+    <main>
+        <header>
+            <h1>Yoika's Font Hub</h1>
+            <!--
+            <nav class="layout-controls" aria-label="视图切换">
+
+                <button id="btn-list" class="view-btn active" title="列表视图 (竖排)">
+                    <svg>
+                        <use href="#icon-list"></use>
+                    </svg>
+                </button>
+
+                <button id="btn-grid" class="view-btn" title="网格视图 (横排)">
+                    <svg>
+                        <use href="#icon-grid"></use>
+                    </svg>
+                </button>
+
+            </nav>
+            -->
+        </header>
+
+        <div id="font-list"></div>
+    </main>
 
     <script src="script.js"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
 </body>
 
 </html>

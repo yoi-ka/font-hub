@@ -9,15 +9,7 @@ const fonts = [
 // ===========================================
 
 const fontListContainer = document.getElementById('font-list');
-const toast = document.getElementById('toast');
 fontListContainer.innerHTML = '';
-
-let toastTimer = null;
-function showToast() {
-    toast.classList.add('show');
-    if (toastTimer) clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => toast.classList.remove('show'), 2000);
-}
 
 async function detectFonts() {
     let foundAny = false;
@@ -33,7 +25,6 @@ async function detectFonts() {
         }
     });
 
-    // 等待所有请求完成，并保证按照原本的数组顺序渲染
     const results = await Promise.all(detectionPromises);
 
     for (const res of results) {
@@ -44,12 +35,17 @@ async function detectFonts() {
     }
 
     if (!foundAny) {
-        fontListContainer.innerHTML = '<div class="card">未发现字体，请检查配置。</div>';
+        fontListContainer.innerHTML = '<article class="font-card empty">未发现字体，请检查配置。</article>';
     }
 }
 
 function renderFontCard(fontData, encodedFolder) {
     const cssUrl = `${window.location.protocol}//${window.location.host}/${encodedFolder}/result.css`;
+    const fontFamilyForCss = `\
+<span class="hl-t">body</span> {
+    <span class="hl-p">font-family</span><span class="hl-k">:</span> <span class="hl-s">'${fontData.family}'</span>;
+}\
+`;
 
     // 动态注入预览 CSS
     const link = document.createElement('link');
@@ -57,89 +53,103 @@ function renderFontCard(fontData, encodedFolder) {
     link.href = `./${encodedFolder}/result.css`;
     document.head.appendChild(link);
 
-    const card = document.createElement('div');
-    card.className = 'card';
+    const card = document.createElement('article');
+    card.className = 'font-card';
+    card.style = `--preview-font: '${fontData.family}';`;
 
-    // 构建高亮的 HTML 字符串
-    const cssCodeHTML = `
-<span class="hl-k">@import</span> url(<span class="hl-s">"${cssUrl}"</span>);
+    const cssCodeHTML = `\
+<span class="hl-k">@import</span> url(<span class="hl-s">'${cssUrl}'</span>);
 
-<span class="hl-t">body</span> {
-    <span class="hl-p">font-family:</span> <span class="hl-s">"${fontData.family}"</span>;
-}`;
+${fontFamilyForCss}
+`;
 
-    const htmlCodeHTML = `
-&lt;<span class="hl-t">link</span> <span class="hl-p">rel</span>=<span class="hl-s">"stylesheet"</span> <span class="hl-p">href</span>=<span class="hl-s">"${cssUrl}"</span>&gt;
+    const htmlCodeHTML = `\
+&lt;<span class="hl-k">link <span class="hl-p">rel</span>=<span class="hl-s">"stylesheet"</span>
+      <span class="hl-p">href</span>=<span class="hl-s">'${cssUrl}'</span></span>&gt;
 
-&lt;<span class="hl-t">style</span>&gt;
-    <span class="hl-t">body</span> {
-        <span class="hl-p">font-family:</span> <span class="hl-s">"${fontData.family}"</span>;
-    }
-&lt;/<span class="hl-t">style</span>&gt;`;
-
-    const cssCodeRaw = encodeURIComponent(`@import url("${cssUrl}");\n\nbody {\n    font-family: "${fontData.family}";\n}`);
-    const htmlCodeRaw = encodeURIComponent(`<link rel="stylesheet" href="${cssUrl}">\n\n<style>\n    body {\n        font-family: "${fontData.family}";\n    }\n</style>`);
-
+&lt;<span class="hl-k">style</span>&gt;
+${fontFamilyForCss.replace(/^/gm, '    ')}
+&lt;/<span class="hl-k">style</span>&gt;
+`;
+    const copyButtonHTML = `
+    <button class="copy-btn" onclick="copyCode(this)" aria-label="复制代码" title="复制">
+        <lottie-player src="./lottie/copy.json" speed="0.5" hover></lottie-player>
+        <svg><use href="#icon-copied"></use></svg>
+        <span class="tooltip" aria-live="polite"></span>
+    </button>
+    `;
     card.innerHTML = `
-        <div class="card-header">
-            <h3>${fontData.name}</h3>
-            <a href="./preview.html?folder=${encodedFolder}&family=${encodeURIComponent(fontData.family)}&name=${encodeURIComponent(fontData.name)}" target="_blank" style="color:var(--primary); font-size:0.9rem;">测试字体 →</a>
-        </div>
+            <header>
+                <h3>
+                    <a href="./preview.html?folder=${encodedFolder}&family=${encodeURIComponent(fontData.family)}&name=${encodeURIComponent(fontData.name)}"
+                       class="test-link" title="字体详情">${fontData.name}</a>
+                </h3>
+            </header>
 
-        <div class="preview-box" style="font-family: '${fontData.family}', serif;">
-            落霞与孤鹜齐飞，秋水共长天一色。<br>
-            1234567890 The quick brown fox jumps.
-        </div>
+            <section>
 
-        <div class="tab-container">
-            <button class="tab-btn active" onclick="switchTab(this, 'css')">CSS</button>
-            <button class="tab-btn" onclick="switchTab(this, 'html')">HTML</button>
-        </div>
+                <div  class="preview-section" >\
+                    落霞与孤鹜齐飞，秋水共长天一色。
+                    Sphinx of black quartz, judge my vow.\
+                </div>
 
-        <div class="tab-desc">常规的引入方式，使用 CSS 或 &lt;style&gt;。</div>
-
-        <div class="code-wrapper">
-            <div class="code-content active" data-type="css" data-raw="${cssCodeRaw}">${cssCodeHTML}</div>
-            <div class="code-content" data-type="html" data-raw="${htmlCodeRaw}">${htmlCodeHTML}</div>
-
-            <button class="copy-btn" onclick="copyCode(this)" title="复制">
-                <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
-            </button>
-        </div>
+                <div class="code-section">
+                    <!-- CSS 引入面板 -->
+                    <details class="css-details" name="code-panels">
+                        <summary>CSS 引入</summary>
+                            <div class="code-content">${cssCodeHTML}</div>
+                            ${copyButtonHTML}
+                    </details>
+                    <!-- HTML 引入面板 -->
+                    <details class="html-details" name="code-panels">
+                        <summary>HTML 引入</summary>
+                            <div class="code-content">${htmlCodeHTML}</div>
+                            ${copyButtonHTML}
+                    </details>
+                </div>
+            </section>
     `;
     fontListContainer.appendChild(card);
 }
 
 // ================= 全局交互函数 =================
-
-window.switchTab = function (btn, type) {
-    const card = btn.closest('.card');
-
-    card.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-
-    card.querySelectorAll('.code-content').forEach(c => c.classList.remove('active'));
-    card.querySelector(`.code-content[data-type="${type}"]`).classList.add('active');
-
-    const desc = card.querySelector('.tab-desc');
-    desc.textContent = type === 'css'
-        ? "常规引入，使用 CSS 或 <style>"
-        : "标准 HTML 引入，适用于 <head> 区域";
-}
-
 window.copyCode = function (btn) {
-    const wrapper = btn.closest('.code-wrapper');
-    const activeContent = wrapper.querySelector('.code-content.active');
-
-    // 【配合优化 2】取出时进行解码
-    const rawCode = decodeURIComponent(activeContent.getAttribute('data-raw'));
+    if (btn.disabled) return;
+    const detailsContainer = btn.closest('details');
+    const activeContent = detailsContainer.querySelector('.code-content');
+    const rawCode = activeContent.textContent.trim();
 
     navigator.clipboard.writeText(rawCode).then(() => {
-        showToast();
-    }).catch(err => {
-        console.error('复制失败:', err);
-        alert('复制失败，请手动复制');
+        btn.disabled = true;
+
+        const tipMsg = btn.querySelector('.tooltip');
+
+        btn.classList.add('copied');
+        tipMsg.textContent = "CopyThat!";
+
+        setTimeout(() => {
+            btn.classList.remove('copied');
+            tipMsg.textContent = "";
+            btn.disabled = false;
+        }, 2000);
     });
 }
+
+// details 关闭函数
+function closeAllDetails() {
+    document.querySelectorAll('details[open]').forEach(details => {
+        details.removeAttribute('open');
+    });
+}
+
+document.addEventListener('click', (event) => {
+    if (!event.target.closest('details')) {
+        closeAllDetails();
+    }
+});
+
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeAllDetails();
+});
 
 detectFonts();
