@@ -55,7 +55,7 @@ function renderFontCard(fontData, encodedFolder) {
 
     const card = document.createElement('article');
     card.className = 'font-card';
-    card.style = `--preview-font: '${fontData.family}';`;
+    card.style = `font-family: '${fontData.family}', serif;`;
 
     const cssCodeHTML = `\
 <span class="hl-k">@import</span> url(<span class="hl-s">'${cssUrl}'</span>);
@@ -79,34 +79,35 @@ ${fontFamilyForCss.replace(/^/gm, '    ')}
     </button>
     `;
     card.innerHTML = `
-            <header>
-                <h3>
-                    <a href="./preview.html?folder=${encodedFolder}&family=${encodeURIComponent(fontData.family)}&name=${encodeURIComponent(fontData.name)}"
-                       class="test-link" title="字体详情">${fontData.name}</a>
-                </h3>
-            </header>
+            <section class="preview-section">
+                <a href="./preview.html?folder=${encodedFolder}&family=${encodeURIComponent(fontData.family)}&name=${encodeURIComponent(fontData.name)}"
+                class="test-link" title="字体详情"></a>
 
-            <section>
+                <header>
+                    <h4>${fontData.name}</h4>
+                </header>
 
-                <div  class="preview-section" >\
-                    落霞与孤鹜齐飞，秋水共长天一色。
-                    Sphinx of black quartz, judge my vow.\
+                <div>
+                    <p class="p1">落霞与孤鹜齐飞</p>
+                    <p class="p2">秋水共长天一色</p>
+                    <p class="p3">Sphinx of black quartz</p>
+                    <p class="p4">Judge my vow</p>
                 </div>
+            </section>
 
-                <div class="code-section">
-                    <!-- CSS 引入面板 -->
-                    <details class="css-details" name="code-panels">
-                        <summary>CSS 引入</summary>
-                            <div class="code-content">${cssCodeHTML}</div>
-                            ${copyButtonHTML}
-                    </details>
-                    <!-- HTML 引入面板 -->
-                    <details class="html-details" name="code-panels">
-                        <summary>HTML 引入</summary>
-                            <div class="code-content">${htmlCodeHTML}</div>
-                            ${copyButtonHTML}
-                    </details>
-                </div>
+            <section class="code-section">
+                <!-- CSS 引入面板 -->
+                <details class="css-details" name="code-panels">
+                    <summary>CSS</summary>
+                        <div class="code-content">${cssCodeHTML}</div>
+                        ${copyButtonHTML}
+                </details>
+                <!-- HTML 引入面板 -->
+                <details class="html-details" name="code-panels">
+                    <summary>HTML</summary>
+                        <div class="code-content">${htmlCodeHTML}</div>
+                        ${copyButtonHTML}
+                </details>
             </section>
     `;
     fontListContainer.appendChild(card);
