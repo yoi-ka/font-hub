@@ -4,15 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>字体预览</title>
+    <title>Font Preview</title>
 
     <link id="dynamic-font-link" rel="stylesheet" href="">
 
     <style>
         :root {
-            --bg-color: #f5f5f7;
-            --card-bg: #ffffff;
-            --accent-color: #0071e3;
+            --bg-color: #d8d8d8;
+            --card-bg: #f0f0f4;
+            --primary-text: #666;
+            --accent-color: #eb5757;
+            --tag-bg: #e2e2e8;
+            --btn-bg: #fff;
+            --btn-border: #ccc;
+        }
+
+        * {
+            box-sizing: border-box;
         }
 
         body {
@@ -33,47 +41,170 @@
             gap: 20px;
         }
 
+        /* ================= Header 面板 ================= */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 2px;
+            box-shadow: 2px 2px 2px rgba(20, 20, 20, 0.2);
+        }
+
+        .title-area h2 {
+            margin: 0 0 8px 0;
+            color: #333;
+        }
+
+        .meta-pane {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            font-size: 0.85rem;
+            color: var(--primary-text);
+        }
+
+        .font-tag {
+            background: var(--tag-bg);
+            padding: 2px 6px;
+            border-radius: 2px;
+        }
+
+        .meta-link {
+            color: unset;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        .meta-link:hover {
+            color: var(--accent-color);
+        }
+
+        .license-badge {
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 1px 5px;
+            border-radius: 2px;
+            font-weight: bold;
+            font-size: 0.75rem;
+            text-decoration: none;
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: var(--primary-text);
+            font-size: 14px;
+            white-space: nowrap;
+        }
+
+        .back-link:hover {
+            color: var(--accent-color);
+        }
+
+        /* ================= 控制台面板 ================= */
         .controls {
             background: var(--card-bg);
-            padding: 15px;
-            border-radius: 12px;
+            padding: 15px 20px;
+            border-radius: 2px;
             display: flex;
             gap: 20px;
             flex-wrap: wrap;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            box-shadow: 2px 2px 2px rgba(20, 20, 20, 0.2);
+            align-items: center;
         }
 
         .control-item {
             display: flex;
             align-items: center;
-            gap: 10px;
-            flex: 1;
-            min-width: 200px;
+            gap: 12px;
+            flex: 1 1 200px;
+            /* 允许换行弹性缩放 */
+            font-size: 0.9rem;
+            color: var(--primary-text);
         }
 
+        /* 滑块样式 */
         input[type="range"] {
             flex: 1;
             cursor: pointer;
+            accent-color: var(--accent-color);
         }
 
+        .value-display {
+            min-width: 45px;
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+            /* 数字等宽，防止滑块抖动 */
+        }
+
+        /* 排版按钮组基础样式（留给你后续魔改） */
+        .btn-group {
+            display: flex;
+            gap: 4px;
+            background: var(--tag-bg);
+            padding: 4px;
+            border-radius: 4px;
+        }
+
+        .icon-btn {
+            background: var(--btn-bg);
+            border: 1px solid var(--btn-border);
+            color: var(--primary-text);
+            padding: 4px 10px;
+            border-radius: 2px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            user-select: none;
+            transition: all 0.2s;
+        }
+
+        .icon-btn:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        /* 按钮激活状态 */
+        .icon-btn.active {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+            color: #fff;
+        }
+
+        /* 按钮特定排版暗示 */
+        #btn-italic {
+            font-style: italic;
+            font-family: serif;
+        }
+
+        #btn-underline {
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        /* ================= 预览区 ================= */
         .preview-box {
             background: var(--card-bg);
-            border-radius: 12px;
+            border-radius: 2px;
             padding: 40px;
-            min-height: 50vh;
+            min-height: 55vh;
             font-size: 36px;
+            font-weight: 400;
+            line-height: 1.6;
+            letter-spacing: 0em;
+            /* 默认字距 */
+            text-align: left;
+            /* 默认对齐 */
+            text-underline-offset: 0.2em;
+            /* 提前设定高级下划线偏移，避免贴字 */
             outline: none;
             white-space: pre-wrap;
-            line-height: 1.6;
-            transition: all 0.2s;
+            word-break: break-all;
+            box-shadow: 2px 2px 2px rgba(20, 20, 20, 0.2);
             font-family: sans-serif;
-        }
-
-        .loading-tip {
-            text-align: center;
-            color: #999;
-            font-size: 14px;
-            margin-top: -10px;
+            transition: font-size 0.1s, letter-spacing 0.1s, line-height 0.1s;
+            /* 略微增加平滑感 */
         }
     </style>
 </head>
@@ -81,78 +212,169 @@
 <body>
 
     <div class="container">
-        <div style="display:flex; justify-content: space-between; align-items: center;">
-            <h2 style="margin:0;" id="font-title">字体预览</h2>
-            <a href="./index.html" style="text-decoration: none; color: #666; font-size: 14px;">← 返回主页</a>
-        </div>
+        <header>
+            <div class="title-area">
+                <h2 id="font-title">正在检索字体...</h2>
+                <div id="meta-pane" class="meta-pane"></div>
+            </div>
+            <a href="./index.html" class="back-link">← 返回主页</a>
+        </header>
 
         <div class="controls">
             <div class="control-item">
                 <label>字号</label>
-                <input type="range" id="sizeRange" min="12" max="128" value="36">
-                <span id="sizeValue">36px</span>
+                <input type="range" id="sizeRange" min="16" max="120" value="36">
+                <span class="value-display" id="sizeValue">36px</span>
             </div>
             <div class="control-item">
                 <label>字重</label>
                 <input type="range" id="weightRange" min="100" max="900" step="100" value="400">
-                <span id="weightValue">400</span>
+                <span class="value-display" id="weightValue">400</span>
+            </div>
+
+            <div class="control-item">
+                <label>行高</label>
+                <input type="range" id="lineHeightRange" min="1.0" max="3.0" step="0.1" value="1.6">
+                <span class="value-display" id="lineHeightValue">1.6</span>
+            </div>
+            <div class="control-item">
+                <label>字距</label>
+                <input type="range" id="letterSpacingRange" min="-0.1" max="0.5" step="0.01" value="0">
+                <span class="value-display" id="letterSpacingValue">0em</span>
+            </div>
+
+            <div class="control-item" style="flex: 0 0 auto;">
+                <div class="btn-group" id="align-group">
+                    <button class="icon-btn active" data-align="left" title="左对齐">左</button>
+                    <button class="icon-btn" data-align="center" title="居中对齐">中</button>
+                    <button class="icon-btn" data-align="right" title="右对齐">右</button>
+                    <button class="icon-btn" data-align="justify" title="两端对齐">两端</button>
+                </div>
+            </div>
+            <div class="control-item" style="flex: 0 0 auto;">
+                <div class="btn-group">
+                    <button class="icon-btn" id="btn-italic" title="斜体 (Italic)">I</button>
+                    <button class="icon-btn" id="btn-underline" title="下划线 (Underline)">U</button>
+                </div>
             </div>
         </div>
 
-        <div class="loading-tip" id="status-text"></div>
-
-        <div class="preview-box" id="editor" contenteditable="true" spellcheck="false">
-            正在加载字体...
-
-            1234567890
-            天地玄黄，宇宙洪荒。
-            The quick brown fox jumps over the lazy dog.
-        </div>
+        <div class="preview-box" id="editor" contenteditable="true" spellcheck="false"></div>
     </div>
 
     <script>
-        // 1. 获取 URL 参数
         const params = new URLSearchParams(window.location.search);
-        const folder = params.get('folder');
-        const family = params.get('family');
-        const name = params.get('name');
+        const fontId = params.get('f');
 
         const linkEl = document.getElementById('dynamic-font-link');
         const editor = document.getElementById('editor');
         const title = document.getElementById('font-title');
-        const statusText = document.getElementById('status-text');
+        const metaPane = document.getElementById('meta-pane');
 
-        // 2. 动态加载逻辑
-        if (folder && family) {
-            // 设置 CSS 路径
-            linkEl.href = `./${folder}/result.css`;
+        // ================= 数据加载逻辑 =================
+        async function loadPreviewData() {
+            if (!fontId) {
+                title.innerText = "预览准备就绪";
+                editor.innerText = "这里是开发测试模式，没有传入字体参数。\n\n你可以测试控件是否正常工作：\n落霞与孤鹜齐飞，秋水共长天一色。\nSphinx of black quartz, judge my vow.";
+                return;
+            }
 
-            // 设置字体样式
-            editor.style.fontFamily = `"${family}", sans-serif`;
+            try {
+                const response = await fetch('./fonts.data.json');
+                if (!response.ok) throw new Error();
+                const data = await response.json();
+                const fontData = data.find(item => item.folder === `fonts/${fontId}`);
 
-            // 更新标题
-            if (name) title.innerText = `${name} - 预览`;
+                if (!fontData) {
+                    title.innerText = "未找到字体";
+                    editor.innerText = "抱歉，该字体未在数据中心注册或构建失败。";
+                    return;
+                }
 
-            // 简单提示
-            statusText.innerText = `正在使用: ${family}`;
-            editor.innerText = `在这里输入文字测试 ${name || family}...\n\n1234567890\n天地玄黄，宇宙洪荒。\nSphinx of black quartz, judge my vow.`;
-        } else {
-            statusText.innerText = "未指定字体参数，请从主页进入";
+                linkEl.href = `./fonts/${fontId}/result.css`;
+                editor.style.fontFamily = `"${fontData.family}", sans-serif`;
+                title.innerText = `${fontData.name} - 预览`;
+
+                renderMetaPane(fontData);
+
+                editor.innerText = `在这里输入文字测试 ${fontData.name}...\n\n0123456789\n落霞与孤鹜齐飞，秋水共长天一色。\nSphinx of black quartz, judge my vow.`;
+
+            } catch (e) {
+                console.error(e);
+                title.innerText = "加载失败";
+                editor.innerText = "读取配置中心失败，请检查网络或构建状态。";
+            }
         }
 
-        // 3. 基础交互逻辑
-        const sizeRange = document.getElementById('sizeRange');
-        const weightRange = document.getElementById('weightRange');
+        function renderMetaPane(fontData) {
+            let html = '';
+            if (fontData.tags && Array.isArray(fontData.tags)) {
+                html += fontData.tags.map(tag => `<span class="font-tag">${tag}</span>`).join('');
+            }
+            if (fontData.author) {
+                const authorContent = fontData.source
+                    ? `<a href="${fontData.source}" target="_blank" class="meta-link">${fontData.author}</a>`
+                    : fontData.author;
+                html += `<span>作者: ${authorContent}</span>`;
+            }
+            const finalLicenseUrl = fontData.license_url || fontData.source || '#';
+            const licenseTitle = fontData.license_notes || '查看授权详情';
+            if (fontData.license) {
+                html += `<a href="${finalLicenseUrl}" target="_blank" class="license-badge" title="${licenseTitle}">${fontData.license}</a>`;
+            }
+            metaPane.innerHTML = html;
+        }
 
-        sizeRange.addEventListener('input', (e) => {
-            editor.style.fontSize = e.target.value + 'px';
-            document.getElementById('sizeValue').textContent = e.target.value + 'px';
+        // ================= 基础交互控制器 =================
+
+        // 1. 滑块组交互
+        const inputs = [
+            { id: 'sizeRange', target: 'fontSize', unit: 'px' },
+            { id: 'weightRange', target: 'fontWeight', unit: '' },
+            { id: 'lineHeightRange', target: 'lineHeight', unit: '' },
+            { id: 'letterSpacingRange', target: 'letterSpacing', unit: 'em' }
+        ];
+
+        inputs.forEach(({ id, target, unit }) => {
+            const range = document.getElementById(id);
+            const display = document.getElementById(id.replace('Range', 'Value'));
+
+            range.addEventListener('input', (e) => {
+                const val = e.target.value;
+                editor.style[target] = val + unit;
+                display.textContent = val + unit;
+            });
         });
 
-        weightRange.addEventListener('input', (e) => {
-            editor.style.fontWeight = e.target.value;
-            document.getElementById('weightValue').textContent = e.target.value;
+        // 2. 对齐方式交互
+        const alignBtns = document.querySelectorAll('#align-group .icon-btn');
+        alignBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                // 清除所有激活状态
+                alignBtns.forEach(b => b.classList.remove('active'));
+                // 激活当前
+                e.target.classList.add('active');
+                // 应用样式
+                editor.style.textAlign = e.target.dataset.align;
+            });
         });
+
+        // 3. 斜体与下划线交互
+        const btnItalic = document.getElementById('btn-italic');
+        const btnUnderline = document.getElementById('btn-underline');
+
+        btnItalic.addEventListener('click', (e) => {
+            const isActive = e.target.classList.toggle('active');
+            editor.style.fontStyle = isActive ? 'italic' : 'normal';
+        });
+
+        btnUnderline.addEventListener('click', (e) => {
+            const isActive = e.target.classList.toggle('active');
+            editor.style.textDecoration = isActive ? 'underline' : 'none';
+        });
+
+        // 启动
+        loadPreviewData();
     </script>
 </body>
 

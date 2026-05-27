@@ -1,0 +1,50 @@
+[
+  {
+    "folder": "fonts/851emoji",
+    "name": "851 EmojiOnly",
+    "family": "851emoji",
+    "tags": [
+      "Emoji"
+    ],
+    "author": "8:51:22 pm",
+    "source": "https://pm85122.onamae.jp/851fontpage.html",
+    "license": "作者自定义 - 免费商用"
+  },
+  {
+    "folder": "fonts/851tegaki_zatsu",
+    "name": "851 手写杂书体",
+    "family": "851tegakizatsu",
+    "tags": [
+      "手写体",
+      "CJK"
+    ],
+    "author": "8:51:22 pm",
+    "source": "https://pm85122.onamae.jp/851fontpage.html",
+    "license": "作者自定义 - 免费商用"
+  },
+  {
+    "folder": "fonts/moon-stars-kai-hw",
+    "name": "月星楷 HW",
+    "family": "Moon Stars Kai HW",
+    "tags": [
+      "楷体",
+      "等宽",
+      "中文"
+    ],
+    "author": "GuiWonder",
+    "source": "https://github.com/GuiWonder/MoonStarsKai",
+    "license": "OFL-1.1"
+  },
+  {
+    "folder": "fonts/planschrift",
+    "name": "遍玨体",
+    "family": "Planschrift",
+    "tags": [
+      "衬线",
+      "中文"
+    ],
+    "author": "Fitzgerald",
+    "source": "https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Planschrift_Project",
+    "license": "OFL-1.1"
+  }
+]

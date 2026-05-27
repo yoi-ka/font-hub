@@ -1,41 +1,29 @@
-// ================= 配置区域 =================
-const fonts = [
-    { folder: 'moon-stars-kai-hw', name: '月星楷 HW', family: 'Moon Stars Kai HW' },
-    { folder: 'ping-fang-ying-feng', name: '平方迎风体', family: 'PING FANG YING FENG' },
-    { folder: 'planschrift', name: '遍玨体', family: 'Planschrift' },
-    { folder: '851tegaki_zatsu', name: '851 手写杂书体', family: '851tegakizatsu' },
-    { folder: '851emoji', name: '851 Emoji Only', family: '851emoji' },
-];
-// ===========================================
-
 const fontListContainer = document.getElementById('font-list');
 fontListContainer.innerHTML = '';
 
-async function detectFonts() {
-    let foundAny = false;
+// 初始化字体站主入口
+async function initFontHub() {
+    try {
+        // 获取构建期清洗好的有效字体数据
+        const response = await fetch('./fonts.data.json');
+        if (!response.ok) throw new Error('未能成功加载字体数据集');
 
-    const detectionPromises = fonts.map(async (fontData) => {
-        const encodedFolder = encodeURIComponent(fontData.folder);
-        try {
-            const response = await fetch(`./${encodedFolder}/result.css`, { method: 'HEAD' });
-            return { fontData, encodedFolder, ok: response.ok };
-        } catch (e) {
-            console.error(`探测 ${fontData.name} 失败:`, e);
-            return { fontData, encodedFolder, ok: false };
+        const validFonts = await response.json();
+
+        if (!validFonts || validFonts.length === 0) {
+            fontListContainer.innerHTML = '<article class="font-card empty">未发现有效字体，请检查自动化构建状态。</article>';
+            return;
         }
-    });
 
-    const results = await Promise.all(detectionPromises);
+        // 循环渲染
+        validFonts.forEach(fontData => {
+            const encodedFolder = encodeURIComponent(fontData.folder);
+            renderFontCard(fontData, encodedFolder);
+        });
 
-    for (const res of results) {
-        if (res.ok) {
-            foundAny = true;
-            renderFontCard(res.fontData, res.encodedFolder);
-        }
-    }
-
-    if (!foundAny) {
-        fontListContainer.innerHTML = '<article class="font-card empty">未发现字体，请检查配置。</article>';
+    } catch (e) {
+        console.error('Font Hub 初始化失败:', e);
+        fontListContainer.innerHTML = '<article class="font-card empty">数据加载异常，请稍后重试。</article>';
     }
 }
 
@@ -71,6 +59,7 @@ ${fontFamilyForCss}
 ${fontFamilyForCss.replace(/^/gm, '    ')}
 &lt;/<span class="hl-k">style</span>&gt;
 `;
+
     const copyButtonHTML = `
     <button class="copy-btn" onclick="copyCode(this)" aria-label="复制代码" title="复制">
         <lottie-player src="./lottie/copy.json" speed="0.5" hover></lottie-player>
@@ -78,10 +67,10 @@ ${fontFamilyForCss.replace(/^/gm, '    ')}
         <span class="tooltip" aria-live="polite"></span>
     </button>
     `;
+
     card.innerHTML = `
             <section class="preview-section">
-                <a href="./preview.html?folder=${encodedFolder}&family=${encodeURIComponent(fontData.family)}&name=${encodeURIComponent(fontData.name)}"
-                class="test-link" title="字体详情"></a>
+                <a href="./preview.html?f=${fontData.folder.split('/').pop()}" class="test-link" title="字体详情"></a>
 
                 <header>
                     <h4>${fontData.name}</h4>
@@ -96,13 +85,11 @@ ${fontFamilyForCss.replace(/^/gm, '    ')}
             </section>
 
             <section class="code-section">
-                <!-- CSS 引入面板 -->
                 <details class="css-details" name="code-panels">
                     <summary>CSS</summary>
                         <div class="code-content">${cssCodeHTML}</div>
                         ${copyButtonHTML}
                 </details>
-                <!-- HTML 引入面板 -->
                 <details class="html-details" name="code-panels">
                     <summary>HTML</summary>
                         <div class="code-content">${htmlCodeHTML}</div>
@@ -122,9 +109,7 @@ window.copyCode = function (btn) {
 
     navigator.clipboard.writeText(rawCode).then(() => {
         btn.disabled = true;
-
         const tipMsg = btn.querySelector('.tooltip');
-
         btn.classList.add('copied');
         tipMsg.textContent = "CopyThat!";
 
@@ -136,7 +121,6 @@ window.copyCode = function (btn) {
     });
 }
 
-// details 关闭函数
 function closeAllDetails() {
     document.querySelectorAll('details[open]').forEach(details => {
         details.removeAttribute('open');
@@ -153,4 +137,5 @@ document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') closeAllDetails();
 });
 
-detectFonts();
+// 启动主程序
+initFontHub();
