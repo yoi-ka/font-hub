@@ -1,0 +1,197 @@
+:root {
+    --bg-color: #d8d8d8;
+    --card-bg: #f0f0f4;
+    --primary-text: #666;
+    --accent-color: #eb5757;
+    --tag-bg: #e2e2e8;
+    --btn-bg: #fff;
+    --btn-border: #ccc;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: var(--bg-color);
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.container {
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ================= Header 面板 ================= */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 2px;
+    box-shadow: 2px 2px 2px rgba(20, 20, 20, 0.2);
+}
+
+.title-area h2 {
+    margin: 0 0 8px 0;
+    color: #333;
+}
+
+.meta-pane {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 0.85rem;
+    color: var(--primary-text);
+}
+
+.font-tag {
+    background: var(--tag-bg);
+    padding: 2px 6px;
+    border-radius: 2px;
+}
+
+.meta-link {
+    color: unset;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.meta-link:hover {
+    color: var(--accent-color);
+}
+
+.license-badge {
+    border: 1px solid var(--accent-color);
+    color: var(--accent-color);
+    padding: 1px 5px;
+    border-radius: 2px;
+    font-weight: bold;
+    font-size: 0.75rem;
+    text-decoration: none;
+}
+
+.back-link {
+    text-decoration: none;
+    color: var(--primary-text);
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.back-link:hover {
+    color: var(--accent-color);
+}
+
+/* ================= 控制台面板 ================= */
+.controls {
+    background: var(--card-bg);
+    padding: 15px 20px;
+    border-radius: 2px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    box-shadow: 2px 2px 2px rgba(20, 20, 20, 0.2);
+    align-items: center;
+}
+
+.control-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1 1 200px;
+    /* 允许换行弹性缩放 */
+    font-size: 0.9rem;
+    color: var(--primary-text);
+}
+
+/* 滑块样式 */
+input[type="range"] {
+    flex: 1;
+    cursor: pointer;
+    accent-color: var(--accent-color);
+}
+
+.value-display {
+    min-width: 45px;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    /* 数字等宽，防止滑块抖动 */
+}
+
+/* 排版按钮组基础样式（留给你后续魔改） */
+.btn-group {
+    display: flex;
+    gap: 4px;
+    background: var(--tag-bg);
+    padding: 4px;
+    border-radius: 4px;
+}
+
+.icon-btn {
+    background: var(--btn-bg);
+    border: 1px solid var(--btn-border);
+    color: var(--primary-text);
+    padding: 4px 10px;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    user-select: none;
+    transition: all 0.2s;
+}
+
+.icon-btn:hover {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+}
+
+/* 按钮激活状态 */
+.icon-btn.active {
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+    color: #fff;
+}
+
+/* 按钮特定排版暗示 */
+#btn-italic {
+    font-style: italic;
+    font-family: serif;
+}
+
+#btn-underline {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+/* ================= 预览区 ================= */
+.preview-box {
+    background: var(--card-bg);
+    border-radius: 2px;
+    padding: 40px;
+    min-height: 55vh;
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: 0em;
+    /* 默认字距 */
+    text-align: left;
+    /* 默认对齐 */
+    text-underline-offset: 0.2em;
+    /* 提前设定高级下划线偏移，避免贴字 */
+    outline: none;
+    white-space: pre-wrap;
+    word-break: break-all;
+    box-shadow: 2px 2px 2px rgba(20, 20, 20, 0.2);
+    font-family: sans-serif;
+    transition: font-size 0.1s, letter-spacing 0.1s, line-height 0.1s;
+    /* 略微增加平滑感 */
+}

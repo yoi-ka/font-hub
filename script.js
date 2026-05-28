@@ -17,7 +17,7 @@ async function initFontHub() {
 
         // 循环渲染
         validFonts.forEach(fontData => {
-            const encodedFolder = encodeURIComponent(fontData.folder);
+            const encodedFolder = fontData.folder.split('/').map(encodeURIComponent).join('/');
             renderFontCard(fontData, encodedFolder);
         });
 

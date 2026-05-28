@@ -23,6 +23,42 @@
     "license": "作者自定义 - 免费商用"
   },
   {
+    "folder": "fonts/dotted-songti-c",
+    "name": "点点像素 - 圆",
+    "family": "Dotted Songti Circle",
+    "tags": [
+      "像素",
+      "中文"
+    ],
+    "author": "wixette",
+    "source": "https://github.com/wixette/dotted-chinese-fonts",
+    "license": "GPL 2.0"
+  },
+  {
+    "folder": "fonts/dotted-songti-d",
+    "name": "点点像素 - 菱",
+    "family": "Dotted Songti Diamond",
+    "tags": [
+      "像素",
+      "中文"
+    ],
+    "author": "wixette",
+    "source": "https://github.com/wixette/dotted-chinese-fonts",
+    "license": "GPL 2.0"
+  },
+  {
+    "folder": "fonts/dotted-songti-s",
+    "name": "点点像素 - 方",
+    "family": "Dotted Songti Square",
+    "tags": [
+      "像素",
+      "中文"
+    ],
+    "author": "wixette",
+    "source": "https://github.com/wixette/dotted-chinese-fonts",
+    "license": "GPL 2.0"
+  },
+  {
     "folder": "fonts/moon-stars-kai-hw",
     "name": "月星楷 HW",
     "family": "Moon Stars Kai HW",
@@ -46,5 +82,30 @@
     "author": "Fitzgerald",
     "source": "https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Planschrift_Project",
     "license": "OFL-1.1"
+  },
+  {
+    "folder": "fonts/tiejili-sc",
+    "name": "铁蒺藜体",
+    "family": "Tiejili SC",
+    "tags": [
+      "装饰",
+      "中文"
+    ],
+    "author": "奈白不弍",
+    "source": "https://github.com/Buernia/Tiejili",
+    "license": "OFL 1.1"
+  },
+  {
+    "folder": "fonts/xuandong-kaishu",
+    "name": "玄冬楷书",
+    "family": "XuandongKaishu",
+    "tags": [
+      "楷体",
+      "毛笔",
+      "中文"
+    ],
+    "author": "Skr-ZERO",
+    "source": "https://github.com/Skr-ZERO/Xuandong-Kaishu",
+    "license": "OFL 1.1"
   }
 ]

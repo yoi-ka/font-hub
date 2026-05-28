@@ -1,0 +1,101 @@
+:root {
+    interpolate-size: allow-keywords;
+    --defaultFont:
+        system-ui,
+        -apple-system,
+        'Segoe UI',
+        Roboto,
+        'PingFang SC',
+        'Microsoft YaHei',
+        sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    --primary: #999;
+    --secondary: #f0f0f4;
+    --bg: #d8d8d8;
+    --code-Main: #e24fb6;
+    --code-Str: #b6b487;
+    --code-Sel: #eb5757;
+    --code-Attr: #96af5a;
+
+    font-family: var(--defaultFont);
+    background: var(--bg);
+    padding: 0;
+    margin: 0;
+    width: 100dvw;
+    height: 100dvh;
+    overflow: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin-block: 10px;
+}
+
+button {
+    border: none;
+    background: none;
+    padding: 2px;
+    border-radius: 2px;
+    cursor: pointer;
+    user-select: none;
+}
+
+a {
+    color: unset;
+    border-radius: 2px;
+    user-select: none;
+    text-decoration: none;
+}
+
+summary {
+    display: block;
+    padding-block: 2px;
+    padding-inline: 4px;
+    border-radius: 2px;
+    width: fit-content;
+    user-select: none;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+    background-color: transparent;
+}
+
+:is(button, a, summary) {
+    box-shadow: 0 0 0 10px transparent;
+}
+
+:focus-visible {
+    color: var(--secondary);
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    background: #f47983;
+    box-shadow: 0 0 0 2px rgba(255, 44, 79, 0.8);
+    transition: background 0.3s ease-out, box-shadow 0.4s ease-out;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    margin-inline: 2rem;
+    height: 100%;
+    overflow: hidden;
+
+    >header {
+        color: var(--secondary);
+        user-select: none;
+    }
+}
