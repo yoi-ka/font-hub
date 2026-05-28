@@ -31,7 +31,7 @@ function renderFontCard(fontData, encodedFolder) {
     const cssUrl = `${window.location.protocol}//${window.location.host}/${encodedFolder}/result.css`;
     const fontFamilyForCss = `\
 <span class="hl-t">body</span> {
-    <span class="hl-p">font-family</span><span class="hl-k">:</span> <span class="hl-s">'${fontData.family}'</span>;
+    <span class="hl-p">font-family</span><span class="hl-k">:</span> <span class="hl-s">"${fontData.family}"</span>;
 }\
 `;
 
@@ -46,14 +46,14 @@ function renderFontCard(fontData, encodedFolder) {
     card.style = `font-family: '${fontData.family}', serif;`;
 
     const cssCodeHTML = `\
-<span class="hl-k">@import</span> url(<span class="hl-s">'${cssUrl}'</span>);
+<span class="hl-k">@import</span> url(<span class="hl-s">"${cssUrl}"</span>);
 
 ${fontFamilyForCss}
 `;
 
     const htmlCodeHTML = `\
 &lt;<span class="hl-k">link <span class="hl-p">rel</span>=<span class="hl-s">"stylesheet"</span>
-      <span class="hl-p">href</span>=<span class="hl-s">'${cssUrl}'</span></span>&gt;
+     <span class="hl-p">href</span>=<span class="hl-s">"${cssUrl}"</span></span>&gt;
 
 &lt;<span class="hl-k">style</span>&gt;
 ${fontFamilyForCss.replace(/^/gm, '    ')}
@@ -99,6 +99,34 @@ ${fontFamilyForCss.replace(/^/gm, '    ')}
     `;
     fontListContainer.appendChild(card);
 }
+
+// ================= 滚动条 =================
+const cylinder = document.querySelector('.dial-cylinder');
+const faceCount = 24;
+const faceHeight = 30;
+const radius = ((faceHeight / 2) / Math.tan(Math.PI / faceCount)).toFixed(2);
+
+
+cylinder.style.setProperty('--face-count', faceCount);
+cylinder.style.setProperty('--face-height', `${faceHeight}px`);
+cylinder.style.setProperty('--radius', `${radius}px`);
+
+const fragment = document.createDocumentFragment();
+for (let i = 0; i < faceCount; i++) {
+    const face = document.createElement('div');
+    face.style.setProperty('--index', i);
+    if (i % 4 === 0) {
+        const hex = (i * 27).toString(16).toUpperCase().padStart(2, '0');
+        face.innerHTML = `<span class="hud-num">0x${hex}</span>`;
+    } else if (i % 2 === 0) {
+        face.innerHTML = `<div class="hud-line medium"></div>`;
+    } else {
+        face.innerHTML = `<div class="hud-line short"></div>`;
+    }
+
+    fragment.appendChild(face);
+}
+cylinder.appendChild(fragment);
 
 // ================= 全局交互函数 =================
 window.copyCode = function (btn) {

@@ -1,3 +1,9 @@
+body {
+    --scrollbar-width: 24px;
+    --tick-color: #333333;
+    --thumb-height: 40px;
+}
+
 /* ================= 布局样式 ================= */
 #font-list {
     display: flex;
@@ -362,5 +368,118 @@
             transform: translateX(0);
             transition: 0.4s;
         }
+    }
+}
+
+/* ====== 嗷！ ====== */
+main {
+    timeline-scope: --list-scroll;
+}
+
+#font-list {
+    scroll-timeline-name: --list-scroll;
+    scroll-timeline-axis: block;
+    scroll-behavior: smooth;
+}
+
+.fake-scrollbar {
+    position: absolute;
+    bottom: 0;
+    right: 30%;
+    rotate: 10deg;
+    width: 30px;
+    height: 50%;
+    align-items: center;
+    perspective: 240px;
+    perspective-origin: -50%;
+    transform-style: preserve-3d;
+    pointer-events: none;
+}
+
+.center-mask {
+    position: absolute;
+    width: 200%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    background: linear-gradient(transparent, var(--bg), transparent);
+    transform: translateZ(-2px);
+}
+
+.dial-cylinder {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    animation: roll-cylinder linear forwards;
+    animation-timeline: --list-scroll;
+}
+
+.dial-cylinder>div {
+    position: absolute;
+    color: #999;
+    font-family: "Dotted Songti Diamond", monospace;
+    font-size: 0.8em;
+    width: 100%;
+    height: var(--face-height);
+    top: 50%;
+    margin-top: calc(var(--face-height) * -0.5);
+    text-align: end;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+    padding-right: 4px;
+    transform:
+        rotateX(calc(var(--index) * (360deg / var(--face-count)))) translateZ(var(--radius));
+}
+
+/* === 刻度线 === */
+.hud-line {
+    background-color: #002FA7;
+    height: 2px;
+    border-radius: 2px;
+}
+
+/* --- 数字 --- */
+.hud-num {
+    position: relative;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 10px;
+    font-weight: 400;
+    color: #888;
+    letter-spacing: 1px;
+
+    &::before {
+        content: '';
+        position: absolute;
+        border-radius: 2px;
+        left: 105%;
+        top: 50%;
+        translate: 0 -50%;
+        width: 16px;
+        height: 1px;
+        background-color: currentColor;
+    }
+}
+
+/* 中刻度 */
+.hud-line.medium {
+    width: 10px;
+}
+
+/* 短刻度 */
+.hud-line.short {
+    width: 4px;
+    opacity: 0.4;
+}
+
+@keyframes roll-cylinder {
+    from {
+        transform: rotateX(0deg);
+    }
+
+    to {
+        transform: rotateX(360deg);
     }
 }

@@ -5,63 +5,82 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Font Preview</title>
-
+    <link rel="stylesheet" href="./css/main.css">
     <link rel="stylesheet" href="./css/preview.css">
     <link id="dynamic-font-link" rel="stylesheet" href="">
 </head>
 
 <body>
 
-    <div class="container">
+    <main>
         <header>
             <div class="title-area">
                 <h2 id="font-title">正在检索字体...</h2>
-                <div id="meta-pane" class="meta-pane"></div>
+                <div id="meta-pane" class="meta-pane">
+                    <span class="font-tag">111</span><span class="font-tag">222</span><span class="font-tag">333</span>
+                    <span>作者: <a href="#" class="meta-link">Yoika</a></span>
+                    <a href="#" class="license-badge">喵喵协议</a>
+                </div>
             </div>
-            <a href="./index.html" class="back-link">← 返回主页</a>
+            <a href="./index.html">← 返回主页</a>
         </header>
 
         <div class="controls">
             <div class="control-item">
-                <label>字号</label>
-                <input type="range" id="sizeRange" min="16" max="120" value="36">
-                <span class="value-display" id="sizeValue">36px</span>
+                <label for="sizeRange">字号</label>
+                <input type="range" id="sizeRange" min="12" max="120" value="36">
+                <span id="sizeValue">36</span>
             </div>
             <div class="control-item">
-                <label>字重</label>
+                <label for="weightRange">字重</label>
                 <input type="range" id="weightRange" min="100" max="900" step="100" value="400">
-                <span class="value-display" id="weightValue">400</span>
+                <span id="weightValue">400</span>
             </div>
 
             <div class="control-item">
-                <label>行高</label>
+                <label for="lineHeightRange">行高</label>
                 <input type="range" id="lineHeightRange" min="1.0" max="3.0" step="0.1" value="1.6">
-                <span class="value-display" id="lineHeightValue">1.6</span>
+                <span id="lineHeightValue">1.6</span>
             </div>
             <div class="control-item">
-                <label>字距</label>
+                <label for="letterSpacingRange">字距</label>
                 <input type="range" id="letterSpacingRange" min="-0.1" max="0.5" step="0.01" value="0">
-                <span class="value-display" id="letterSpacingValue">0em</span>
+                <span id="letterSpacingValue">0</span>
             </div>
 
-            <div class="control-item" style="flex: 0 0 auto;">
+            <div class="control-item">
                 <div class="btn-group" id="align-group">
-                    <button class="icon-btn active" data-align="left" title="左对齐">左</button>
-                    <button class="icon-btn" data-align="center" title="居中对齐">中</button>
-                    <button class="icon-btn" data-align="right" title="右对齐">右</button>
-                    <button class="icon-btn" data-align="justify" title="两端对齐">两端</button>
+
+                    <button class="icon-btn active" data-align="left" aria-label="左对齐">
+                        左
+                    </button>
+
+                    <button class="icon-btn" data-align="center" aria-label="居中对齐">
+                        中
+                    </button>
+
+                    <button class="icon-btn" data-align="right" aria-label="右对齐">
+                        右
+                    </button>
+
                 </div>
-            </div>
-            <div class="control-item" style="flex: 0 0 auto;">
+
                 <div class="btn-group">
-                    <button class="icon-btn" id="btn-italic" title="斜体 (Italic)">I</button>
-                    <button class="icon-btn" id="btn-underline" title="下划线 (Underline)">U</button>
+
+                    <button class="icon-btn" id="btn-italic" aria-label="斜体">
+                        I
+                    </button>
+
+                    <button class="icon-btn" id="btn-underline" aria-label="下划线">
+                        U
+                    </button>
+
                 </div>
             </div>
         </div>
 
-        <div class="preview-box" id="editor" contenteditable="true" spellcheck="false"></div>
-    </div>
+        <textarea id="editor" spellcheck="false" placeholder="输入文字测试..."></textarea>
+    </main>
 
     <script>
         const params = new URLSearchParams(window.location.search);
@@ -76,7 +95,7 @@
         async function loadPreviewData() {
             if (!fontId) {
                 title.innerText = "预览准备就绪";
-                editor.innerText = "这里是开发测试模式，没有传入字体参数。\n\n落霞与孤鹜齐飞，秋水共长天一色。\nSphinx of black quartz, judge my vow.";
+                editor.innerText = `这里是开发测试模式，没有传入字体参数。`;
                 return;
             }
 
@@ -94,11 +113,11 @@
 
                 linkEl.href = `./fonts/${fontId}/result.css`;
                 editor.style.fontFamily = `"${fontData.family}", sans-serif`;
-                title.innerText = `${fontData.name} - 预览`;
+                title.innerText = `${fontData.name}`;
 
                 renderMetaPane(fontData);
 
-                editor.innerText = `输入文字测试 ${fontData.name}...\n\n0123456789\n落霞与孤鹜齐飞，秋水共长天一色。\nSphinx of black quartz, judge my vow.`;
+                editor.innerText = `输入文字测试 ${fontData.name}...`;
 
             } catch (e) {
                 console.error(e);
@@ -121,7 +140,7 @@
             const finalLicenseUrl = fontData.license_url || fontData.source || '#';
             const licenseTitle = fontData.license_notes || '查看授权详情';
             if (fontData.license) {
-                html += `<a href="${finalLicenseUrl}" target="_blank" class="license-badge" title="${licenseTitle}">${fontData.license}</a>`;
+                html += `<a href="${finalLicenseUrl}" target="_blank" class="license-badge">${fontData.license}</a>`;
             }
             metaPane.innerHTML = html;
         }
@@ -143,7 +162,7 @@
             range.addEventListener('input', (e) => {
                 const val = e.target.value;
                 editor.style[target] = val + unit;
-                display.textContent = val + unit;
+                display.textContent = val;
             });
         });
 

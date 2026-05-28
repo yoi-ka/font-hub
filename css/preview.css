@@ -1,5 +1,4 @@
 :root {
-    --bg-color: #d8d8d8;
     --card-bg: #f0f0f4;
     --primary-text: #666;
     --accent-color: #eb5757;
@@ -8,26 +7,12 @@
     --btn-border: #ccc;
 }
 
-* {
-    box-sizing: border-box;
-}
-
-body {
-    font-family: system-ui, -apple-system, sans-serif;
-    background: var(--bg-color);
-    margin: 0;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    min-height: 100vh;
-}
-
-.container {
+main {
+    margin: 0 auto;
     width: 100%;
     max-width: 900px;
-    display: flex;
-    flex-direction: column;
     gap: 20px;
+    color: var(--primary);
 }
 
 /* ================= Header 面板 ================= */
@@ -39,65 +24,61 @@ header {
     padding: 20px;
     border-radius: 2px;
     box-shadow: 2px 2px 2px rgba(20, 20, 20, 0.2);
-}
 
-.title-area h2 {
-    margin: 0 0 8px 0;
-    color: #333;
-}
 
-.meta-pane {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    flex-wrap: wrap;
-    font-size: 0.85rem;
-    color: var(--primary-text);
-}
+    h2 {
+        margin: 0 0 8px 0;
+        color: #333;
+    }
 
-.font-tag {
-    background: var(--tag-bg);
-    padding: 2px 6px;
-    border-radius: 2px;
-}
+    a {
+        color: var(--primary-text);
+        transition: color 0.3s;
 
-.meta-link {
-    color: unset;
-    text-decoration: underline;
-    text-underline-offset: 3px;
-}
+        &:hover {
+            color: var(--accent-color);
+        }
+    }
 
-.meta-link:hover {
-    color: var(--accent-color);
-}
+    .meta-pane {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        flex-wrap: wrap;
+        font-size: 0.85rem;
+        color: var(--primary-text);
+    }
 
-.license-badge {
-    border: 1px solid var(--accent-color);
-    color: var(--accent-color);
-    padding: 1px 5px;
-    border-radius: 2px;
-    font-weight: bold;
-    font-size: 0.75rem;
-    text-decoration: none;
-}
+    .font-tag {
+        background: var(--tag-bg);
+        padding: 2px 6px;
+        border-radius: 2px;
+    }
 
-.back-link {
-    text-decoration: none;
-    color: var(--primary-text);
-    font-size: 14px;
-    white-space: nowrap;
-}
+    .meta-link {
+        text-decoration: underline;
+        text-underline-offset: 2px;
+    }
 
-.back-link:hover {
-    color: var(--accent-color);
+    .license-badge {
+        margin-left: 5px;
+        padding: 1px 5px;
+        border: 1px solid var(--accent-color);
+        color: var(--accent-color);
+        border-radius: 2px;
+        font-weight: bold;
+        font-size: 0.75rem;
+        text-decoration: none;
+    }
 }
 
 /* ================= 控制台面板 ================= */
 .controls {
+    display: grid;
+    grid-template-columns: auto auto;
     background: var(--card-bg);
     padding: 15px 20px;
     border-radius: 2px;
-    display: flex;
     gap: 20px;
     flex-wrap: wrap;
     box-shadow: 2px 2px 2px rgba(20, 20, 20, 0.2);
@@ -107,25 +88,66 @@ header {
 .control-item {
     display: flex;
     align-items: center;
-    gap: 12px;
     flex: 1 1 200px;
-    /* 允许换行弹性缩放 */
     font-size: 0.9rem;
     color: var(--primary-text);
+
+    label {
+        white-space: nowrap;
+        padding-right: 10px;
+    }
+
+    span {
+        padding-left: 10px;
+        width: 45px;
+        text-align: right;
+        font-variant-numeric: tabular-nums;
+        user-select: none;
+    }
 }
 
 /* 滑块样式 */
 input[type="range"] {
+    appearance: none;
     flex: 1;
+    justify-content: center;
+    height: 4px;
+    border-radius: 2px;
+    background: linear-gradient(to right, transparent, var(--primary) 60%, var(--accent-color));
     cursor: pointer;
-    accent-color: var(--accent-color);
-}
 
-.value-display {
-    min-width: 45px;
-    text-align: right;
-    font-variant-numeric: tabular-nums;
-    /* 数字等宽，防止滑块抖动 */
+    &::-webkit-slider-thumb {
+        appearance: none;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: var(--btn-bg);
+        border: 2px solid var(--btn-border);
+        box-shadow: 0 0 0 0 transparent;
+        transition: 0.3s ease-out;
+        cursor: ew-resize;
+    }
+
+    &:hover {
+        filter: none;
+        background: linear-gradient(to right, transparent, var(--primary) 30%, var(--accent-color) 60%);
+
+        &::-webkit-slider-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 4px;
+            border-color: var(--card-bg);
+            border-width: 3px;
+            background: #6666;
+            box-shadow: 0 0 0 2px rgba(255, 250, 250, 0.2);
+            transform: rotate(225deg);
+        }
+    }
+
+    &:active::-webkit-slider-thumb {
+        background: #666;
+        box-shadow: 0 0 0 4px rgba(255, 250, 250, 0.3);
+    }
 }
 
 /* 排版按钮组基础样式（留给你后续魔改） */
@@ -173,25 +195,19 @@ input[type="range"] {
 }
 
 /* ================= 预览区 ================= */
-.preview-box {
+#editor {
+    color: black;
     background: var(--card-bg);
+    border: none;
+    resize: none;
     border-radius: 2px;
-    padding: 40px;
-    min-height: 55vh;
+    padding: 20px;
+    height: 40dvh;
     font-size: 36px;
     font-weight: 400;
     line-height: 1.6;
     letter-spacing: 0em;
-    /* 默认字距 */
     text-align: left;
-    /* 默认对齐 */
-    text-underline-offset: 0.2em;
-    /* 提前设定高级下划线偏移，避免贴字 */
-    outline: none;
-    white-space: pre-wrap;
-    word-break: break-all;
-    box-shadow: 2px 2px 2px rgba(20, 20, 20, 0.2);
+    text-underline-offset: 0.1em;
     font-family: sans-serif;
-    transition: font-size 0.1s, letter-spacing 0.1s, line-height 0.1s;
-    /* 略微增加平滑感 */
 }
